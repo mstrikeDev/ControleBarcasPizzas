@@ -1,0 +1,695 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Registro de Barcas | Grupo RQG</title>
+
+<style>
+:root {
+    --gold: #c9972b;
+    --gold-dark: #9b701d;
+    --gold-light: #f6ead0;
+    --text: #252525;
+    --muted: #707070;
+    --border: #dedede;
+    --bg: #f5f5f3;
+    --white: #fff;
+    --danger: #b42318;
+    --success: #18794e;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Inter, Segoe UI, Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(circle at top left, rgba(201,151,43,.10), transparent 30%),
+        var(--bg);
+}
+
+.header {
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 26px 20px 22px;
+}
+
+.header-inner {
+    width: min(920px, 100%);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.logo {
+    width: 145px;
+    height: 82px;
+    object-fit: contain;
+    object-position: center;
+    flex-shrink: 0;
+}
+
+.header-title {
+    border-left: 1px solid #ddd;
+    padding-left: 24px;
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 27px;
+    letter-spacing: -.5px;
+}
+
+.header-title p {
+    margin: 7px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.container {
+    width: min(820px, calc(100% - 32px));
+    margin: 34px auto 50px;
+}
+
+.card {
+    background: var(--white);
+    border: 1px solid #e2e2e2;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.07);
+    overflow: hidden;
+}
+
+.card-top {
+    padding: 26px 30px 22px;
+    border-bottom: 1px solid #eee;
+}
+
+.card-top h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.card-top p {
+    margin: 7px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.form {
+    padding: 30px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.field {
+    min-width: 0;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 9px;
+}
+
+.required {
+    color: var(--danger);
+}
+
+select,
+input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0 14px;
+    background: #fff;
+    color: #222;
+    font-size: 14px;
+    outline: none;
+    transition: .18s ease;
+}
+
+input:hover,
+select:hover {
+    border-color: #bbb;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(201,151,43,.13);
+}
+
+.user-wrap,
+.store-wrap {
+    padding: 17px;
+    border: 1px solid #ead9b7;
+    border-radius: 13px;
+    background: linear-gradient(135deg,#fffdf8,#fff);
+}
+
+.user-wrap label,
+.store-wrap label {
+    font-size: 15px;
+}
+
+.user-input,
+.store-input {
+    height: 54px;
+    border: 2px solid var(--gold);
+    font-size: 15px;
+}
+
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.section-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+}
+
+.products-section {
+    padding: 20px;
+    border: 1px solid #ead9b7;
+    border-radius: 13px;
+    background: linear-gradient(135deg,#fffdf8,#fff);
+}
+
+.products-title {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 18px;
+}
+
+.product-field {
+    margin-bottom: 18px;
+}
+
+.product-field:last-child {
+    margin-bottom: 0;
+}
+
+.product-field label {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.product-input {
+    height: 54px;
+    border: 2px solid var(--gold);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.product-input::placeholder {
+    font-weight: 400;
+    color: #aaa;
+}
+
+.help {
+    display: block;
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.actions {
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid #eee;
+}
+
+button {
+    width: 100%;
+    height: 54px;
+    border: 0;
+    border-radius: 11px;
+    background: linear-gradient(135deg,var(--gold),var(--gold-dark));
+    color: white;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .3px;
+    cursor: pointer;
+    box-shadow: 0 7px 18px rgba(155,112,29,.22);
+    transition: .18s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 9px 22px rgba(155,112,29,.28);
+}
+
+button:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.notice {
+    display: none;
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 11px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.notice.success {
+    display: block;
+    background: #edf9f2;
+    border: 1px solid #b7e1c8;
+    color: var(--success);
+}
+
+.notice.error {
+    display: block;
+    background: #fff1f0;
+    border: 1px solid #f0b8b3;
+    color: var(--danger);
+}
+
+.success-icon {
+    display: block;
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.footer {
+    text-align: center;
+    color: #888;
+    font-size: 11px;
+    margin-top: 18px;
+}
+
+@media(max-width:680px) {
+
+    .header {
+        padding: 18px 16px;
+    }
+
+    .header-inner {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+
+    .logo {
+        width: 155px;
+        height: 75px;
+    }
+
+    .header-title {
+        border-left: 0;
+        border-top: 1px solid #ddd;
+        padding: 14px 0 0;
+    }
+
+    .header-title h1 {
+        font-size: 22px;
+    }
+
+    .container {
+        width: min(100% - 20px,820px);
+        margin-top: 18px;
+    }
+
+    .card {
+        border-radius: 14px;
+    }
+
+    .card-top,
+    .form {
+        padding: 22px 18px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .full {
+        grid-column: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <img src="logo-rqg.png" class="logo" alt="Grupo RQG">
+
+        <div class="header-title">
+            <h1>Registro de Barcas</h1>
+            <p>Controle e registro de produção operacional</p>
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <section class="card">
+
+        <div class="card-top">
+            <h2>Novo registro</h2>
+            <p>Informe os responsáveis, a loja e as quantidades produzidas.</p>
+        </div>
+
+
+        <form
+            id="barcasForm"
+            class="form"
+            action="https://docs.google.com/forms/d/e/1FAIpQLSeyVQSTdaDzC1iX6PWwcDxxDqMCWEcPiE-5W5gaFZI1B-X9sQ/formResponse"
+            method="POST"
+            target="googleFormFrame"
+        >
+
+            <div class="grid">
+
+                <!-- RESPONSÁVEL -->
+
+                <div class="field">
+
+                    <div class="user-wrap">
+
+                        <label for="responsavel">
+                            <span class="section-label">
+                                <span class="section-dot"></span>
+                                NOME DO RESPONSÁVEL
+                                <span class="required">*</span>
+                            </span>
+                        </label>
+
+                        <select
+                            id="responsavel"
+                            class="user-input"
+                            name="entry.165591626"
+                            required
+                        >
+                            <option value="">Selecione seu nome</option>
+                            <option>Andrikson</option>
+                            <option>Rose</option>
+                            <option>Savanara</option>
+                            <option>Bruna</option>
+                            <option>Esleane</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOJA -->
+
+                <div class="field">
+
+                    <div class="store-wrap">
+
+                        <label for="loja">
+                            <span class="section-label">
+                                <span class="section-dot"></span>
+                                SELECIONE A LOJA
+                                <span class="required">*</span>
+                            </span>
+                        </label>
+
+                        <select
+                            id="loja"
+                            class="store-input"
+                            name="entry.1952754282"
+                            required
+                        >
+                            <option value="">Selecione sua loja</option>
+                            <option>Terminal 3</option>
+                            <option>Forneria Leste</option>
+                            <option>Cafe Leste</option>
+                            <option>Forneria Oeste</option>
+                            <option>Bakery</option>
+                            <option>Pier Leste</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUANTIDADES -->
+
+                <div class="field full">
+
+                    <div class="products-section">
+
+                        <div class="products-title">
+                            <span class="section-label">
+                                <span class="section-dot"></span>
+                                QUANTIDADE DE BARCAS
+                            </span>
+                        </div>
+
+
+                        <!-- BARCA CALABRESA -->
+
+                        <div class="product-field">
+
+                            <label for="calabresa">
+                                Barca de Calabresa
+                            </label>
+
+                            <input
+                                id="calabresa"
+                                class="product-input"
+                                type="number"
+                                name="entry.1450906012"
+                                min="0"
+                                step="1"
+                                inputmode="numeric"
+                                placeholder="Quantidade produzida"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- BARCA FRANGO -->
+
+                        <div class="product-field">
+
+                            <label for="frango">
+                                Barca de Frango
+                            </label>
+
+                            <input
+                                id="frango"
+                                class="product-input"
+                                type="number"
+                                name="entry.1233574356"
+                                min="0"
+                                step="1"
+                                inputmode="numeric"
+                                placeholder="Quantidade produzida"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- BARCA MARGUERITA -->
+
+                        <div class="product-field">
+
+                            <label for="marguerita">
+                                Barca de Marguerita
+                            </label>
+
+                            <input
+                                id="marguerita"
+                                class="product-input"
+                                type="number"
+                                name="entry.1925106233"
+                                min="0"
+                                step="1"
+                                inputmode="numeric"
+                                placeholder="Quantidade produzida"
+                                required
+                            >
+
+                        </div>
+
+
+                        <!-- BARCA BAURU -->
+
+                        <div class="product-field">
+
+                            <label for="bauru">
+                                Barca de Bauru
+                            </label>
+
+                            <input
+                                id="bauru"
+                                class="product-input"
+                                type="number"
+                                name="entry.1031291090"
+                                min="0"
+                                step="1"
+                                inputmode="numeric"
+                                placeholder="Quantidade produzida"
+                                required
+                            >
+
+                        </div>
+
+                        <span class="help">
+                            Informe 0 quando não houver produção do respectivo produto.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTÃO -->
+
+            <div class="actions">
+
+                <button id="submitButton" type="submit">
+                    REGISTRAR PRODUÇÃO
+                </button>
+
+                <div id="notice" class="notice"></div>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <div class="footer">
+        Grupo RQG • Controle interno de produção de barcas
+    </div>
+
+</main>
+
+
+<!-- ENVIO GOOGLE FORMS SEM SAIR DA PÁGINA -->
+
+<iframe
+    name="googleFormFrame"
+    id="googleFormFrame"
+    style="display:none"
+></iframe>
+
+
+<script>
+
+const form = document.getElementById("barcasForm");
+const button = document.getElementById("submitButton");
+const notice = document.getElementById("notice");
+const iframe = document.getElementById("googleFormFrame");
+
+let enviando = false;
+let envioConfirmado = false;
+
+
+// VALIDAÇÃO E ENVIO
+
+form.addEventListener("submit", function(e) {
+
+    if (enviando) {
+        e.preventDefault();
+        return;
+    }
+
+    const campos = [
+        document.getElementById("calabresa"),
+        document.getElementById("frango"),
+        document.getElementById("marguerita"),
+        document.getElementById("bauru")
+    ];
+
+    for (const campo of campos) {
+
+        if (campo.value === "" || Number(campo.value) < 0) {
+
+            e.preventDefault();
+
+            notice.className = "notice error";
+            notice.textContent = "Preencha todas as quantidades corretamente.";
+
+            campo.focus();
+
+            return;
+        }
+    }
+
+    enviando = true;
+    envioConfirmado = false;
+
+    button.disabled = true;
+    button.textContent = "ENVIANDO REGISTRO...";
+
+    notice.className = "notice";
+    notice.textContent = "";
+
+});
+
+
+// RESPOSTA DO GOOGLE FORMS
+
+iframe.addEventListener("load", function() {
+
+    if (!enviando || envioConfirmado) return;
+
+    envioConfirmado = true;
+
+    notice.className = "notice success";
+
+    notice.innerHTML =
+        '<span class="success-icon">✓</span>' +
+        'Produção registrada com sucesso!';
+
+    form.reset();
+
+    button.disabled = false;
+    button.textContent = "REGISTRAR PRODUÇÃO";
+
+    enviando = false;
+
+});
+
+</script>
+
+</body>
+</html>
